@@ -1,5 +1,3 @@
-package Test;
-
 import java.util.Random;
 import org.knowm.xchart.*;
 import org.knowm.xchart.QuickChart;
