@@ -7,10 +7,7 @@
  */
 public class dsf {
     public static void main(String[] args) {
-        System.out.println();
-        System.out.println("This is for test ro commit");
+        System.out.println("PRD");
 
-        System.out.println("This is for test ro commit");
-        System.out.println("add in local master");
     }
 }
