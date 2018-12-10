@@ -7,7 +7,7 @@
  */
 public class dsf {
     public static void main(String[] args) {
-        System.out.println("PRD2");
+        System.out.println("PRD");
 
     }
 }
