@@ -7,19 +7,11 @@
  */
 public class dsf {
     public static void main(String[] args) {
-        System.out.println();
-        System.out.println("This is for test ro commit");
-
-        System.out.println("This is for test ro commit");
-        System.out.println("add in PRD Ver");
-
-
-
-
+        System.out.println("test for PRD branch");
     }
 
-    static public class forTest{
-        public static void test(){
+    static public class forTest {
+        public static void test() {
             System.out.println("new change in local master");
         }
     }
