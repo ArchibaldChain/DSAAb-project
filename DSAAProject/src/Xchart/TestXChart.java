@@ -1,3 +1,5 @@
+package Xchart;
+
 import java.util.Random;
 import org.knowm.xchart.*;
 import org.knowm.xchart.QuickChart;
@@ -61,7 +63,7 @@ public class TestXChart  {
                 getGaussian(1000, 1, 10), getGaussian(1000, 0, 5));
         series.setMarker(SeriesMarkers.DIAMOND);
 
-        JFrame jFrame = new SwingWrapper(chart).displayChart();
+        new SwingWrapper(chart).displayChart();
 
 
 
