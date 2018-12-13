@@ -7,33 +7,12 @@
  */
 public class dsf {
     public static void main(String[] args) {
-        char[] c = {'a','b','c'};
-        String a = "dfadfafasf大学";
-        a = a.substring(0, a.length() - 2);
-
-
-        System.out.println(a);
-
-        String b = a.substring(0, a.length() - 1);
-
-        System.out.println(b);
-        test(a);
-        System.out.println(a);
-
-//        System.out.println();
-//        System.out.println("This is for test ro commit");
-//
-//        System.out.println("This is for test ro commit");
-//        System.out.println("add in local master");
-//
-
-
+        System.out.println("test for PRD branch");
     }
 
-
-    public static void test(String a){
-        a = " bddddsfa";
-        System.out.println("new change in local master");
-
+    static public class forTest {
+        public static void test() {
+            System.out.println("new change in local master");
+        }
     }
 }
