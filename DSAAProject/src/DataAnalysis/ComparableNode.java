@@ -8,14 +8,23 @@ package DataAnalysis;
  * <p>Copyright: Copyright (c) 2018</p>
  */
 
-abstract class ComparableNode<T>{
+public abstract class ComparableNode<T extends ComparableNode>{
 
     /**
-     * if there is comparable value larger than the in o, return true
+     * if there is comparable value larger than the value in o, return true
+     * smaller or equal return false
      * @param o is the same object of this
      * @return lager than true; less or equal than return false
      */
-    abstract boolean compareTo(T o);
 
+    int num;
+    // The number is the value used for comparing
 
+    boolean compareTo(T o){
+        return this.num > o.num;
+    }
+
+    boolean equals(T o){
+        return this.num == o.num;
+    }
 }

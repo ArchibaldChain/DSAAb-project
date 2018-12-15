@@ -48,9 +48,9 @@ class MyHeap<T extends ComparableNode<T>> {
         }
     }
 
-     T delete() throws ArrayIndexOutOfBoundsException{
+     T delete() throws IndexOutOfBoundsException{
         if (size == 0){
-            throw new ArrayIndexOutOfBoundsException("Line empty");
+            throw new IndexOutOfBoundsException("Line empty");
         }
         T temp = heap(0);
         heap[0] = heap[size - 1];
@@ -60,13 +60,28 @@ class MyHeap<T extends ComparableNode<T>> {
         if(size < heap.length/2)
             heap = Arrays.copyOf(heap, heap.length/2);
 
-        moveBack();
+        moveBack(0);
 
         return temp;
     }
 
-    private void moveBack(){
-         int n = 0;
+    public void changeNode(T node) throws NoSuchElementException{
+
+        for (int i = 0; i < size; i++) {
+            if (heap[i] == node){
+
+                if (node.compareTo(heap(i))){
+                    moveBack(i);
+                } else {
+                    moveForward(i);
+                }
+                return;
+            }
+        }
+        throw new NoSuchElementException();
+    }
+
+    private void moveBack(int n){
         int father = n;
         int leftSon = n*2 + 1, rightSon = 2*n + 2;
         System.out.println(n);
@@ -122,31 +137,4 @@ class MyHeap<T extends ComparableNode<T>> {
         else return b;
     }
 
-//     static class Node extends ComparableNode<Node> {
-//        static int Number = 0;
-//        private int number;
-//        private int value;
-//        String name;
-//        private int getValue() {
-//            return value;
-//        }
-//
-//        private String getName() {
-//            return name;
-//        }
-//
-//        Node(int value) {
-//            this.value = value;
-//            number = ++Number;
-//            name = "No." + number;
-//        }
-//
-//        @Override
-//        boolean compareTo(Node n){
-//            return (this.value > n.value);
-//        }
-//
-//
-//
-//    }
 }

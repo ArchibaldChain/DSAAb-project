@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -10,28 +11,17 @@ import java.util.TreeSet;
  */
 public class dsf {
     public static void main(String[] args) {
-        char[] c = {'a','b','c'};
-        String a = "dfadfafasf大学";
-        a = a.substring(0, a.length() - 2);
-
-
-
-        System.out.println(a);
-
-        String b = a.substring(0, a.length() - 1);
-
-        System.out.println(b);
-        test(a);
-        System.out.println(a);
-
-//        System.out.println();
-//        System.out.println("This is for test ro commit");
-//
-//        System.out.println("This is for test ro commit");
-//        System.out.println("add in local master");
-//
-
-
+        ArrayList<Integer> arrayList = new ArrayList();
+        arrayList.add(1);
+        arrayList.add(2);
+        arrayList.add(3);
+        Integer a[] = arrayList.toArray(new Integer[0]);
+        for (int i = 0; i < a.length; i++) {
+            System.out.println(a[i]);
+        }
+        String x = "中国";
+        x = x.substring(0, x.length() - 1);
+        System.out.println(x);
     }
 
 
@@ -41,3 +31,5 @@ public class dsf {
 
     }
 }
+
+

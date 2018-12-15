@@ -118,20 +118,37 @@ public class Student {
             }
         }
 
+        this.province = removeLastCharacter(this.province, "省");
 
+        this.city = removeLastCharacter(this.city,"市");
+
+        this.district = removeLastCharacter(this.district, "区");
+
+        this.workProvince = removeLastCharacter(this.workProvince, "省");
+
+        this.workCity = removeLastCharacter(this.workCity, "市");
 
         if (country.length() >0 && country.charAt(country.length() - 1) == '国'){
             this.abroadCountry = country.substring(0, country.length() - 1);
         }
 
         if (this.abroadCountry.equals("中")){
-            this.abroadCountry = "中国香港";
-            this.domesticUniversity = "";
-            this.abroadCountry = "中国香港";
+            if (this.abroadUniversity.contains("香港")){
+                this.abroadCountry = "中国香港";
+                this.domesticUniversity = "";
+            }
+            if (this.abroadUniversity.contains("澳门")){
+                this.abroadCountry = "中国澳门";
+                this.domesticUniversity = "";
+            }
+
         }
+    }
 
-
-
+    private String removeLastCharacter(String pro, String words){
+        if (pro.contains(words))
+            pro = pro.substring(0, pro.length() - 1);
+        return pro;
     }
 
     /**
