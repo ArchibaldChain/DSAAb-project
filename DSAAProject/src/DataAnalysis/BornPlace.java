@@ -1,6 +1,8 @@
 package DataAnalysis;
 
-import Student.*;
+import Student.CSVReader;
+import Student.Student;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,17 +15,25 @@ import java.util.HashMap;
  * <p>Copyright: Copyright (c) 2018</p>
  */
 
-public class BornPlace{
+public class BornPlace {
 
-    public static void main(String[] args) {
-        CSVReader reader = new CSVReader("FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
-        ArrayList<Student> students = reader.parse(); // Format the data into a list
-
+    public BornPlace(Student[] student) {
+        province = new HashMap<>();
+        for (Student s : student) {
+            String name = s.getProvince();
+            if (province.containsKey(name)) {
+                Province p = province.remove(name);
+                p.add(s);
+                province.put(name, p);// This is because get is remove
+            } else {
+                province.put(name, new Province(name, s));
+            }
+        }
     }
 
-    public static void setBornPlace(ArrayList<Student> students){
-        BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
-        System.out.println(bornPlace.toString());
+    public static void main(String[] args) {
+        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
+        ArrayList<Student> students = reader.parse(); // Format the data into a list
 
     }
 
@@ -31,23 +41,12 @@ public class BornPlace{
     private HashMap<String, Province> province;
     private MyTreeMap<String, Province> sortedProvince;
 
-    public BornPlace(Student[] student) {
-        province = new HashMap<>();
-        for (Student s:student)
-        {
-            String name =  s.getProvince();
-            if (province.containsKey(name)){
-                Province p = province.remove(name);
-                p.add(s);
-                province.put(name, p);// This is because get is remove
-            }
-            else {
-                province.put(name, new Province(name, s));
-            }
-        }
+    public static void setBornPlace(ArrayList<Student> students) {
+        BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
+        System.out.println(bornPlace.toString());
     }
 
-    public void sort(){
+    public void sort() {
         sortedProvince = new MyTreeMap<>(province);
         for (Province p :
                 sortedProvince.toArray(new Province[0])) {
@@ -59,7 +58,7 @@ public class BornPlace{
     public String toString() {
         sort();
         StringBuilder s = new StringBuilder();
-        for (Province p :   sortedProvince.toArray(new Province[0])) {
+        for (Province p : sortedProvince.toArray(new Province[0])) {
             s.append(p.toString());
         }
         return s.toString();
@@ -69,13 +68,14 @@ public class BornPlace{
 
 }
 
-class Province extends ComparableNode<Province> implements AddAble<Student>{
+class Province extends ComparableNode<Province> implements AddAble<Student> {
     String provinceName;
     private HashMap<String, City> city;
     private MyTreeMap<String, City> sortedCity;
 
     /**
      * When meet the new province
+     *
      * @param provinceName is a String
      */
     Province(String provinceName, Student s) {
@@ -86,21 +86,22 @@ class Province extends ComparableNode<Province> implements AddAble<Student>{
         city.put(name, new City(name, s));
     }
 
-    void sort(){
+    void sort() {
         sortedCity = new MyTreeMap<>(city);
-        for (City c :sortedCity.toArray(new City[0])) {
+        for (City c : sortedCity.toArray(new City[0])) {
             c.sort();
         }
     }
 
     /**
      * Add new Student in this province, so num++
+     *
      * @param s is this student
      */
     @Override
-    public void add(Student s){
+    public void add(Student s) {
         String name = s.getCity();
-        if (city.containsKey(name)){
+        if (city.containsKey(name)) {
             City c = city.remove(name);
             c.add(s);
             city.put(name, c);//This is because get means remove
@@ -108,21 +109,21 @@ class Province extends ComparableNode<Province> implements AddAble<Student>{
         } else {
             city.put(name, new City(name, s));
         }
-        num ++;
+        num++;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder s = new StringBuilder();
-        for (City c: sortedCity.toArray(new City[0])) {
+        for (City c : sortedCity.toArray(new City[0])) {
             s.append(c.toString());
         }
-        return "--"+ this.provinceName+ "("+num+")"+ "\n" + s;
+        return "--" + this.provinceName + "(" + num + ")" + "\n" + s;
     }
 }
 
 
-class City extends ComparableNode<City> implements AddAble<Student>{
+class City extends ComparableNode<City> implements AddAble<Student> {
     String cityName;
     HashMap<String, District> district;
     MyTreeMap<String, District> sortedDistrict;
@@ -135,35 +136,35 @@ class City extends ComparableNode<City> implements AddAble<Student>{
         district.put(name, new District(name, s));
     }
 
-    void sort(){
+    void sort() {
         sortedDistrict = new MyTreeMap<>(district);
     }
 
     @Override
-    public void add(Student s){
+    public void add(Student s) {
         String name = s.getDistrict();
-        if (district.containsKey(name)){
+        if (district.containsKey(name)) {
             District d = district.remove(name);
             d.add(s);
             district.put(name, d);//This is because get means remove
         } else {
             district.put(name, new District(name, s));
         }
-        num ++;
+        num++;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder s = new StringBuilder();
-        for (District d: sortedDistrict.toArray(new District[0])) {
+        for (District d : sortedDistrict.toArray(new District[0])) {
             s.append(d.toString());
         }
 
-        return "------"+ this.cityName+ "("+num+")"+ "\n" + s;
+        return "------" + this.cityName + "(" + num + ")" + "\n" + s;
     }
 }
 
-class District extends ComparableNode<District> implements AddAble<Student>{
+class District extends ComparableNode<District> implements AddAble<Student> {
     String districtName;
     ArrayList<Student> students;
 
@@ -175,12 +176,12 @@ class District extends ComparableNode<District> implements AddAble<Student>{
     }
 
     @Override
-    public void add(Student s){
+    public void add(Student s) {
         students.add(s);
-        num ++;
+        num++;
     }
 
-    public String toString(){
-        return "----------"+ this.districtName+ "("+num+")"+ "\n";
+    public String toString() {
+        return "----------" + this.districtName + "(" + num + ")" + "\n";
     }
 }
