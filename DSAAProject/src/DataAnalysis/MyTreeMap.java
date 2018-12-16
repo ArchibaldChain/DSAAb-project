@@ -1,7 +1,5 @@
 package DataAnalysis;
 
-import com.sun.xml.internal.ws.util.QNameMap;
-
 import java.util.*;
 
 
@@ -30,13 +28,12 @@ public class MyTreeMap<K, V extends ComparableNode<V>>
         this.sortedElement = new BinarySearchTree<>();
     }
 
-    public MyTreeMap(HashMap<K, V> elementData) {
+    MyTreeMap(HashMap<K, V> elementData) {
         this.elementData = elementData;
         this.sortedElement = new BinarySearchTree<>();
         for (V v: this.elementData.values()) {
             sortedElement.add(v);
         }
-
     }
 
     public ArrayList<V> getArrayList(){
