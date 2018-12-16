@@ -13,13 +13,17 @@ public class CountryUni {
     public CountryUni(Student[] student) {
         country = new HashMap<>();
         for (Student s : student) {
+
+            if (s.getDream().equals("出国深造") || s.getAbroadCountry().equals("")
+                    || s.getAbroadUniversity().equals("")){
+                continue;
+            }
             String name = s.getAbroadCountry();
             if (country.containsKey(name)) {
-                Country p = country.remove(name);
+                Country p = country.get(name);
                 p.add(s);
-                country.put(name, p);// This is because get is remove
             } else {
-                country.put(name, new Country(name, s));
+                country.put(name, new Country(s));
             }
         }
     }
@@ -59,12 +63,12 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
     HashMap<String, University> university;
     MyTreeMap<String, University> sortedUniversity;
 
-    Country(String countryName, Student s) {
-        this.countryName = countryName;
+    Country(Student s) {
+        this.countryName = s.getAbroadCountry();
         num = 1;
         String name = s.getAbroadCountry();
         university = new HashMap<>();
-        university.put(name, new University(name, s));
+        university.put(name, new University(s));
     }
 
     void sort() {
@@ -75,11 +79,10 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
     public void add(Student s) {
         String name = s.getAbroadUniversity();
         if (university.containsKey(name)) {
-            University d = university.remove(name);
+            University d = university.get(name);
             d.add(s);
-            university.put(name, d);//This is because get means remove
         } else {
-            university.put(name, new University(name, s));
+            university.put(name, new University(s));
         }
         num++;
     }
@@ -99,10 +102,10 @@ class University extends ComparableNode<University> implements AddAble<Student> 
     String universityName;
     ArrayList<Student> students;
 
-    University(String universityName, Student s) {
+    University(Student s) {
         students = new ArrayList<>();
         students.add(s);
-        this.universityName = universityName;
+        this.universityName = s.getAbroadUniversity();
         num = 1;
     }
 

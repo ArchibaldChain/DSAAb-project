@@ -20,6 +20,9 @@ public class BornPlace {
     public BornPlace(Student[] student) {
         province = new HashMap<>();
         for (Student s : student) {
+            if (s.getProvince().equals("")){
+                continue;
+            }
             String name = s.getProvince();
             if (province.containsKey(name)) {
                 Province p = province.remove(name);
@@ -102,9 +105,8 @@ class Province extends ComparableNode<Province> implements AddAble<Student> {
     public void add(Student s) {
         String name = s.getCity();
         if (city.containsKey(name)) {
-            City c = city.remove(name);
+            City c = city.get(name);
             c.add(s);
-            city.put(name, c);//This is because get means remove
 
         } else {
             city.put(name, new City(name, s));
@@ -144,9 +146,8 @@ class City extends ComparableNode<City> implements AddAble<Student> {
     public void add(Student s) {
         String name = s.getDistrict();
         if (district.containsKey(name)) {
-            District d = district.remove(name);
+            District d = district.get(name);
             d.add(s);
-            district.put(name, d);//This is because get means remove
         } else {
             district.put(name, new District(name, s));
         }
