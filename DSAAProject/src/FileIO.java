@@ -19,7 +19,7 @@ public class FileIO {
         try{
             Reader reader = new InputStreamReader(new FileInputStream(path), "UTF-8");
             BufferedReader bf = new BufferedReader(reader);
-            String a = null;
+            String a;
             // read line by line
             while ((a = bf.readLine()) != null){
                 sb.append(a+"\n");
@@ -38,11 +38,11 @@ public class FileIO {
         return sb.toString();
     }
 
-    public static void fileWriter(String path){
+    public static void fileWriter(String contains, String path){
         try{
             Writer wr = new FileWriter(path);
             BufferedWriter bw = new BufferedWriter(wr);
-            bw.write("utf-8");
+            bw.write(contains);
             bw.close();
             wr.close();
 
@@ -52,19 +52,6 @@ public class FileIO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Input the name of file name:");
-        Scanner sc = new Scanner(System.in);
-        String file = sc.nextLine();
-        String str = fileReader(file);
-        System.out.println(str);
-        //fileWriter();
-
-        System.out.println("Please enter the file name:");
-        file = sc.next();
-        fileWriter(file);
     }
 }
 

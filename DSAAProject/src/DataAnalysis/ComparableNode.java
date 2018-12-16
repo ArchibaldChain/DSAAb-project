@@ -21,7 +21,7 @@ public abstract class ComparableNode<T extends ComparableNode>{
     // The number is the value used for comparing
 
     boolean compareTo(T o){
-        return this.num > o.num;
+        return this.num <= o.num;
     }
 
     boolean equals(T o){

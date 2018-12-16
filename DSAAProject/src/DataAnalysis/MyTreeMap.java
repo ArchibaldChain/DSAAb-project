@@ -1,5 +1,7 @@
 package DataAnalysis;
 
+import com.sun.xml.internal.ws.util.QNameMap;
+
 import java.util.*;
 
 
@@ -23,9 +25,18 @@ public class MyTreeMap<K, V extends ComparableNode<V>>
     private BinarySearchTree<V> sortedElement;
 
 
-    MyTreeMap() {
+    public MyTreeMap() {
         this.elementData = new HashMap<>();
         this.sortedElement = new BinarySearchTree<>();
+    }
+
+    public MyTreeMap(HashMap<K, V> elementData) {
+        this.elementData = elementData;
+        this.sortedElement = new BinarySearchTree<>();
+        for (V v: this.elementData.values()) {
+            sortedElement.add(v);
+        }
+
     }
 
     public ArrayList<V> getArrayList(){
@@ -200,7 +211,7 @@ class BinarySearchTree<T extends ComparableNode<T>> {
                 t = t.rightChild;
             }
         }
-        throw new NullPointerException("Not Found");
+        throw new NoSuchElementException("Not Found");
     }
 
     private Node findParent(Node node){

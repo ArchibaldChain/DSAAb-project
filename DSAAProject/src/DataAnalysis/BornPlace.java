@@ -2,7 +2,7 @@ package DataAnalysis;
 
 import Student.*;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 /**
@@ -13,19 +13,26 @@ import java.util.ArrayList;
  * <p>Copyright: Copyright (c) 2018</p>
  */
 
-public class BornPlace {
+public class BornPlace{
 
     public static void main(String[] args) {
         CSVReader reader = new CSVReader("FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
-        BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
-        System.out.println(bornPlace.toString());
+
     }
 
-    MyTreeMap<String, Province> province;
+    public static void setBornPlace(ArrayList<Student> students){
+        BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
+        System.out.println(bornPlace.toString());
+
+    }
+
+
+    private HashMap<String, Province> province;
+    private MyTreeMap<String, Province> sortedProvince;
 
     public BornPlace(Student[] student) {
-        province = new MyTreeMap<>();
+        province = new HashMap<>();
         for (Student s:student)
         {
             String name =  s.getProvince();
@@ -38,24 +45,34 @@ public class BornPlace {
                 province.put(name, new Province(name, s));
             }
         }
+    }
 
-        //System.out.println(toString());
+    public void sort(){
+        sortedProvince = new MyTreeMap<>(province);
+        for (Province p :
+                sortedProvince.toArray(new Province[0])) {
+            p.sort();
+        }
     }
 
     @Override
     public String toString() {
+        sort();
         StringBuilder s = new StringBuilder();
-        for (Province p :   province.toArray(new Province[0])) {
+        for (Province p :   sortedProvince.toArray(new Province[0])) {
             s.append(p.toString());
         }
         return s.toString();
+
     }
+
 
 }
 
 class Province extends ComparableNode<Province> implements AddAble<Student>{
     String provinceName;
-    MyTreeMap<String, City> city;
+    private HashMap<String, City> city;
+    private MyTreeMap<String, City> sortedCity;
 
     /**
      * When meet the new province
@@ -65,8 +82,15 @@ class Province extends ComparableNode<Province> implements AddAble<Student>{
         this.provinceName = provinceName;
         num = 1;// This is in the super class, stands for the Number of City
         String name = s.getCity();
-        city = new MyTreeMap<>();
+        city = new HashMap<>();
         city.put(name, new City(name, s));
+    }
+
+    void sort(){
+        sortedCity = new MyTreeMap<>(city);
+        for (City c :sortedCity.toArray(new City[0])) {
+            c.sort();
+        }
     }
 
     /**
@@ -87,9 +111,10 @@ class Province extends ComparableNode<Province> implements AddAble<Student>{
         num ++;
     }
 
+    @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
-        for (City c: city.toArray(new City[0])) {
+        for (City c: sortedCity.toArray(new City[0])) {
             s.append(c.toString());
         }
         return "--"+ this.provinceName+ "("+num+")"+ "\n" + s;
@@ -99,14 +124,19 @@ class Province extends ComparableNode<Province> implements AddAble<Student>{
 
 class City extends ComparableNode<City> implements AddAble<Student>{
     String cityName;
-    MyTreeMap<String, District> district;
+    HashMap<String, District> district;
+    MyTreeMap<String, District> sortedDistrict;
 
     City(String cityName, Student s) {
         this.cityName = cityName;
         num = 1;
         String name = s.getDistrict();
-        district = new MyTreeMap<>();
+        district = new HashMap<>();
         district.put(name, new District(name, s));
+    }
+
+    void sort(){
+        sortedDistrict = new MyTreeMap<>(district);
     }
 
     @Override
@@ -122,9 +152,10 @@ class City extends ComparableNode<City> implements AddAble<Student>{
         num ++;
     }
 
+    @Override
     public String toString(){
         StringBuilder s = new StringBuilder();
-        for (District d: district.toArray(new District[0])) {
+        for (District d: sortedDistrict.toArray(new District[0])) {
             s.append(d.toString());
         }
 
