@@ -14,7 +14,7 @@ public class CountryUni {
         country = new HashMap<>();
         for (Student s : student) {
 
-            if (s.getDream().equals("出国深造") || s.getAbroadCountry().equals("")
+            if (!s.getDream().equals("出国深造") || s.getAbroadCountry().equals("")
                     || s.getAbroadUniversity().equals("")){
                 continue;
             }
@@ -82,6 +82,7 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
             University d = university.get(name);
             d.add(s);
         } else {
+
             university.put(name, new University(s));
         }
         num++;
