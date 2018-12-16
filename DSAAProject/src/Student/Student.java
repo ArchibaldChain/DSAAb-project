@@ -1,10 +1,8 @@
 package Student;
 
-import java.util.Arrays;
-
 /**
  * Notice: Encoding with UTF-8
- *
+ * <p>
  * Javabean
  * You can store the data in the format like ArrayList<Student>
  */
@@ -33,7 +31,7 @@ public class Student {
     private String workPlace; // 工作单位
     private float salary;
 
-    public Student(String[] items){
+    public Student(String[] items) {
 
         // Constructor
         id = items[0];
@@ -94,25 +92,34 @@ public class Student {
      * Make the HongKong   become "study aboard"
      */
 
+    /**
+     * Empty judge
+     *
+     * @return true/ false
+     */
+    static Boolean emptyJudger(String[] item) {
+        return (item[3].equals("") && item[4].equals("") && item[9].equals(""));
+    }
 
     /**
      * Set the dream, country, university
      * Remove the country name '国'
+     *
      * @return
      */
-    private void dataRegulator(String dream, String country,String abroadUniversity, String university){
-        if (abroadUniversity.contains("大学")){
+    private void dataRegulator(String dream, String country, String abroadUniversity, String university) {
+        if (abroadUniversity.contains("大学")) {
             abroadUniversity = abroadUniversity.substring(0, abroadUniversity.length() - 2);
         }
-        if (university.contains("大学")){
+        if (university.contains("大学")) {
             university = university.substring(0, university.length() - 2);
         }
 
         this.abroadUniversity = abroadUniversity;
         this.domesticUniversity = university;
 
-        if (dream.equals("国内读研")){
-            if (university.contains("香港") ||  university.contains("HK")){
+        if (dream.equals("国内读研")) {
+            if (university.contains("香港") || university.contains("HK")) {
                 this.dream = "出国深造";
                 this.abroadCountry = "中国香港";
             }
@@ -120,7 +127,7 @@ public class Student {
 
         this.province = removeLastCharacter(this.province, "省");
 
-        this.city = removeLastCharacter(this.city,"市");
+        this.city = removeLastCharacter(this.city, "市");
 
         this.district = removeLastCharacter(this.district, "区");
 
@@ -128,16 +135,16 @@ public class Student {
 
         this.workCity = removeLastCharacter(this.workCity, "市");
 
-        if (country.length() >0 && country.charAt(country.length() - 1) == '国'){
+        if (country.length() > 0 && country.charAt(country.length() - 1) == '国') {
             this.abroadCountry = country.substring(0, country.length() - 1);
         }
 
-        if (this.abroadCountry.equals("中")){
-            if (this.abroadUniversity.contains("香港")){
+        if (this.abroadCountry.equals("中")) {
+            if (this.abroadUniversity.contains("香港")) {
                 this.abroadCountry = "中国香港";
                 this.domesticUniversity = "";
             }
-            if (this.abroadUniversity.contains("澳门")){
+            if (this.abroadUniversity.contains("澳门")) {
                 this.abroadCountry = "中国澳门";
                 this.domesticUniversity = "";
             }
@@ -145,18 +152,10 @@ public class Student {
         }
     }
 
-    private String removeLastCharacter(String pro, String words){
+    private String removeLastCharacter(String pro, String words) {
         if (pro.contains(words))
             pro = pro.substring(0, pro.length() - 1);
         return pro;
-    }
-
-    /**
-     * Empty judge
-     * @return true/ false
-     */
-    static Boolean emptyJudger(String[] item){
-        return (item[3].equals("") && item[4].equals( "") && item[9].equals(""));
     }
     // setters and getters...
 
@@ -332,14 +331,15 @@ public class Student {
 
     /**
      * Format the string into float
+     *
      * @param s
      * @return float
      */
-    private float toFloat(String s){
+    private float toFloat(String s) {
         float f = 0;
         try {
             f = Float.parseFloat(s); // The parameter may be "" or " " or something else and can't be parsed to float number.
-        } catch (Exception e){
+        } catch (Exception e) {
             // ignore, f will be returned as 0
         }
         return f;
