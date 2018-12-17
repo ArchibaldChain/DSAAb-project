@@ -56,7 +56,7 @@ public class Student {
         workPlace = items[19];
         setSalary(items[20]);
 
-        dataRegulator(items[9], items[10], items[11], items[14]);
+        dataRegulator(items[10]);
 
 
     }
@@ -107,21 +107,22 @@ public class Student {
      *
      * @return
      */
-    private void dataRegulator(String dream, String country, String abroadUniversity, String university) {
-        if (abroadUniversity.contains("大学")) {
-            abroadUniversity = abroadUniversity.substring(0, abroadUniversity.length() - 2);
+    private void dataRegulator(String country) {
+        if (this.abroadUniversity.contains("大学")) {
+            this.abroadUniversity = this.abroadUniversity.substring(0, this.abroadUniversity.length() - 2);
         }
-        if (university.contains("大学")) {
-            university = university.substring(0, university.length() - 2);
+        if (this.domesticUniversity.contains("大学")) {
+            this.domesticUniversity = this.domesticUniversity.substring(0, this.domesticUniversity.length() - 2);
         }
 
-        this.abroadUniversity = abroadUniversity;
-        this.domesticUniversity = university;
-
-        if (dream.equals("国内读研")) {
-            if (university.contains("香港") || university.contains("HK")) {
+        if (this.dream.equals("国内读研")) {
+            if (this.domesticUniversity.contains("香港") || this.domesticUniversity.contains("HK")) {
                 this.dream = "出国深造";
                 this.abroadCountry = "中国香港";
+                this.abroadUniversity = this.getDomesticUniversity();
+                this.major1 = this.major2;
+                this.domesticUniversity = "";
+                this.major2 = "";
             }
         }
 
@@ -142,11 +143,9 @@ public class Student {
         if (this.abroadCountry.equals("中")) {
             if (this.abroadUniversity.contains("香港")) {
                 this.abroadCountry = "中国香港";
-                this.domesticUniversity = "";
             }
             if (this.abroadUniversity.contains("澳门")) {
                 this.abroadCountry = "中国澳门";
-                this.domesticUniversity = "";
             }
 
         }
