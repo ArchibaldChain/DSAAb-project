@@ -6,7 +6,6 @@ import Student.Student;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 /*
  * ProjectName:    DSAAProject
  * Author:         PRD
@@ -16,7 +15,6 @@ import java.util.HashMap;
  */
 
 public class CountryUniMajor {
-
     private HashMap<String, Country> country;
 
     public static void main(String[] args) {
