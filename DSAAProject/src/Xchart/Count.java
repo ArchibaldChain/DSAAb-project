@@ -4,7 +4,10 @@ import Student.CSVReader;
 import Student.Student;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Collections;
+=======
+>>>>>>> 2 count methods added
 
 /**
  * ProjectName:    DSAAProject
@@ -65,6 +68,7 @@ public class Count {
         return returnArray;
     }
 
+<<<<<<< HEAD
 
     static int[] CountWorkType(Student[] students) {
         /*
@@ -103,6 +107,8 @@ public class Count {
         return SalaryList;
     }
 
+=======
+>>>>>>> 2 count methods added
     public static void main(String[] args) {
         CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
@@ -112,6 +118,7 @@ public class Count {
         // 硕博意愿
         int[] DegreeArray = CountDegree(students.toArray(new Student[0]));
         System.out.println(DegreeArray[0] + " " + DegreeArray[1] + " " + DegreeArray[2] + " " + DegreeArray[3]);
+<<<<<<< HEAD
         // 工作类型
         int[] WorkTypeArray = CountWorkType(students.toArray(new Student[0]));
         System.out.println(WorkTypeArray[0] + " " + WorkTypeArray[1] + " " + WorkTypeArray[2]);
@@ -120,6 +127,8 @@ public class Count {
         for (int i = 0; i < salaryList.size(); i++) {
             System.out.println(salaryList.get(i));
         }
+=======
+>>>>>>> 2 count methods added
 
 
     }
