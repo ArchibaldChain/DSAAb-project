@@ -15,7 +15,6 @@ import java.util.HashMap;
  */
 
 public class CountryUniMajor {
-
     private HashMap<String, Country> country;
 
     public static void main(String[] args) {

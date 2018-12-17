@@ -1,7 +1,9 @@
+import DataAnalysis.CityUniMajor;
 import DataAnalysis.CountryUniMajor;
+import FileIO.FileIO;
 import Student.CSVReader;
 import Student.Student;
-import FileIO.*;
+
 import java.util.ArrayList;
 
 public class Start2 {
@@ -11,5 +13,8 @@ public class Start2 {
 
         CountryUniMajor countryUniMajor = new CountryUniMajor(students.toArray(new Student[0]));
         FileIO.fileWriter(countryUniMajor.toString(), "DSAAProject\\FileStorage\\Country Uni Major.txt");
+
+        CityUniMajor cityUniMajor = new CityUniMajor(students.toArray(new Student[0]));
+        FileIO.fileWriter(cityUniMajor.toString(), "DSAAProject\\FileStorage\\DomesticCity Uni Major.txt");
     }
 }
