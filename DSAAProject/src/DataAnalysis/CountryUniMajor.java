@@ -23,11 +23,16 @@ public class CountryUniMajor {
         CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
     }
+
     private MyTreeMap<String, Country> sortedCountry;
 
     public CountryUniMajor(Student[] student) {
         country = new HashMap<>();
         for (Student s : student) {
+            if (!s.getDream().equals("出国深造") || s.getAbroadCountry().equals("")
+                    || s.getAbroadUniversity().equals("") || s.getAbroadCountry().equals("中")) {
+                continue;
+            }
             String name = s.getAbroadCountry();
             if (country.containsKey(name)) {
                 Country c = country.remove(name);
@@ -124,7 +129,7 @@ class University extends ComparableNode<University> implements AddAble<Student> 
     MyTreeMap<String, Major> sortedMajor;
 
     University(String universityName, Student s) {
-        this.universityName = universityName;
+        this.universityName = s.getAbroadUniversity();
         num = 1;
         String name = s.getMajor1();
         major = new HashMap<>();

@@ -105,7 +105,7 @@ public class Student {
      * Set the dream, country, university
      * Remove the country name '国'
      *
-     * @return
+     * @return void
      */
     private void dataRegulator(String dream, String country, String abroadUniversity, String university) {
         if (abroadUniversity.contains("大学")) {
