@@ -21,6 +21,9 @@ public class BornPlace {
         province = new HashMap<>();
         for (Student s : student) {
             String name = s.getProvince();
+            if (name.equals("")){
+                continue;
+            }
             if (province.containsKey(name)) {
                 Province p = province.remove(name);
                 p.add(s);
