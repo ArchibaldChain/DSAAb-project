@@ -17,6 +17,7 @@ import java.util.HashMap;
 public class CityUniMajor {
     private HashMap<String, DomesticCity> domesticCity;
     private MyTreeMap<String, DomesticCity> sortedDomesticCity;
+    public int Unicount = 0;
 
     public CityUniMajor(Student[] student) {
         domesticCity = new HashMap<>();
@@ -39,6 +40,7 @@ public class CityUniMajor {
     public static void main(String[] args) {
         CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
+
     }
 
     public static void setCityUniMajor(ArrayList<Student> students) {
