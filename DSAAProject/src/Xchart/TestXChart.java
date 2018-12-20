@@ -1,5 +1,6 @@
 package Xchart;
 
+import java.awt.*;
 import java.util.Random;
 import org.knowm.xchart.*;
 import org.knowm.xchart.QuickChart;
@@ -19,33 +20,7 @@ import java.io.IOException;
  */
 public class TestXChart  {
 
-    public static void main(String[] args) {
-//        double[] xData = new double[] { 0.0, 1.0, 2.0 };
-//        double[] yData = new double[] { 2.0, 1.0, 0.0 };
-//
-//// Create Chart
-//
-//        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
-//
-//// Show it
-//        JFrame jFrame = new SwingWrapper(chart).displayChart();
-//
-//// Save it
-//
-//        try {
-//            BitmapEncoder.saveBitmap(chart, "./Sample_Chart", BitmapEncoder.BitmapFormat.PNG);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//// or save it in high-res
-//
-//
-//        try {
-//            BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapEncoder.BitmapFormat.PNG, 300);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    public static void dotChart(String[] args) {
 
         // Create Chart
         XYChart chart = new XYChartBuilder().width(600).height(500).title("Gaussian Blobs").xAxisTitle("X").yAxisTitle("Y").build();
@@ -91,6 +66,41 @@ public class TestXChart  {
         return x;
 
     }
+
+    public static void main(String[] args) {
+        getXchart();
+    }
+
+    public static void getXchart(){
+        double[] xData = new double[] { 0.0, 1.0, 2.0 };
+        double[] yData = new double[] { 2.0, 1.0, 0.0 };
+
+// Create Chart
+
+        XYChart chart = QuickChart.getChart("Sample Chart", "X", "Y", "y(x)", xData, yData);
+
+// Show it
+        JFrame jFrame = new SwingWrapper(chart).displayChart();
+
+// Save it
+
+        try {
+            BitmapEncoder.saveBitmap(chart, "Sample_Chart", BitmapEncoder.BitmapFormat.PNG);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+// or save it in high-res
+
+
+        try {
+            BitmapEncoder.saveBitmapWithDPI(chart, "./Sample_Chart_300_DPI", BitmapEncoder.BitmapFormat.PNG, 300);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
 
 

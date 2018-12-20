@@ -44,16 +44,19 @@ public class CSVReader {
 
 
                 for (int i = 0; i < items.length; i++) {
+                    if (items[i].contains(" ")){
+                        items[i] = items[i].replace(" ", ""); // reduce the useless space
+                    }
 
-                    items[i] = items[i].replace(" ", ""); // reduce the useless space
                 }
 
-
-                // store the data into list or whatever you like
-                if (Student.emptyJudger(items)){
+                if (items[0].equals("学号") || Student.emptyJudger(items) || items[9].equals("毕业去向")){
                     // Jump over those who did not fill the blank
                     continue;
                 }
+
+                // store the data into list or whatever you like
+
                 Student s = new Student(items);
                 list.add(s);
 

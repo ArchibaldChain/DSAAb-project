@@ -22,15 +22,14 @@ public class CityUniMajor {
     public CityUniMajor(Student[] student) {
         domesticCity = new HashMap<>();
         for (Student s : student) {
-            if (!s.getDream().equals("国内读研") || s.getDomesticCity().equals("")
+            if (!s.getDream().equals("内地读研") && !s.getDream().equals("国内读研")|| s.getDomesticCity().equals("")
                     || s.getDomesticUniversity().equals("")) {
                 continue;
             }
             String name = s.getDomesticCity();
             if (domesticCity.containsKey(name)) {
-                DomesticCity c = domesticCity.remove(name);
+                DomesticCity c = domesticCity.get(name);
                 c.add(s);
-                domesticCity.put(name, c);// This is because get is remove
             } else {
                 domesticCity.put(name, new DomesticCity(name, s));
             }
@@ -83,7 +82,7 @@ class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Stude
     DomesticCity(String cityName, Student s) {
         this.cityName = cityName;
         num = 1;
-        String name = s.getDomesticCity();
+        String name = s.getDomesticUniversity();
         university = new HashMap<>();
         university.put(name, new DomesticUniversity(name, s));
     }
@@ -104,9 +103,8 @@ class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Stude
     public void add(Student s) {
         String name = s.getDomesticUniversity();
         if (university.containsKey(name)) {
-            DomesticUniversity u = university.remove(name);
+            DomesticUniversity u = university.get(name);
             u.add(s);
-            university.put(name, u);//This is because get means remove
         } else {
             university.put(name, new DomesticUniversity(name, s));
         }
@@ -129,7 +127,7 @@ class DomesticUniversity extends ComparableNode<DomesticUniversity> implements A
     MyTreeMap<String, DomesticMajor> sortedMajor;
 
     DomesticUniversity(String universityName, Student s) {
-        this.universityName = s.getDomesticUniversity();
+        this.universityName = universityName;
         num = 1;
         String name = s.getMajor2();
         major = new HashMap<>();
@@ -144,9 +142,8 @@ class DomesticUniversity extends ComparableNode<DomesticUniversity> implements A
     public void add(Student s) {
         String name = s.getMajor2();
         if (major.containsKey(name)) {
-            DomesticMajor m = major.remove(name);
+            DomesticMajor m = major.get(name);
             m.add(s);
-            major.put(name, m);
         } else {
             major.put(name, new DomesticMajor(name, s));
         }
