@@ -1,4 +1,4 @@
-package Xchart;
+package DataAnalysis;
 
 import Student.CSVReader;
 import Student.Student;
@@ -110,7 +110,7 @@ public class Count {
 =======
 >>>>>>> 2 count methods added
     public static void main(String[] args) {
-        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
+        CSVReader reader = new CSVReader("FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
         // 毕业去向
         int[] DreamArray = CountDream(students.toArray(new Student[0]));

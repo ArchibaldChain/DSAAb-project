@@ -27,15 +27,15 @@ public class CountryUniMajor {
     public CountryUniMajor(Student[] student) {
         country = new HashMap<>();
         for (Student s : student) {
-            if (!s.getDream().equals("出国深造") || s.getAbroadCountry().equals("")
+            if ((!s.getDream().equals("出国深造") && !s.getDream().equals("出国留学") &&
+                    !s.getDream().equals("香港读研")) || s.getAbroadCountry().equals("")
                     || s.getAbroadUniversity().equals("") || s.getAbroadCountry().equals("中")) {
                 continue;
             }
             String name = s.getAbroadCountry();
             if (country.containsKey(name)) {
-                Country c = country.remove(name);
+                Country c = country.get(name);
                 c.add(s);
-                country.put(name, c);// This is because get is remove
             } else {
                 country.put(name, new Country(name, s));
             }
@@ -81,7 +81,7 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
     Country(String countryName, Student s) {
         this.countryName = countryName;
         num = 1;
-        String name = s.getAbroadCountry();
+        String name = s.getAbroadUniversity();
         university = new HashMap<>();
         university.put(name, new University(name, s));
     }
@@ -102,10 +102,10 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
     public void add(Student s) {
         String name = s.getAbroadUniversity();
         if (university.containsKey(name)) {
-            University u = university.remove(name);
+            University u = university.get(name);
             u.add(s);
-            university.put(name, u);//This is because get means remove
         } else {
+            System.out.println("name = " + name);
             university.put(name, new University(name, s));
         }
         num++;
@@ -122,12 +122,13 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
 }
 
 class University extends ComparableNode<University> implements AddAble<Student> {
-    String universityName;
-    HashMap<String, Major> major;
-    MyTreeMap<String, Major> sortedMajor;
+    private String universityName;
+    private HashMap<String, Major> major;
+    private MyTreeMap<String, Major> sortedMajor;
 
     University(String universityName, Student s) {
-        this.universityName = s.getAbroadUniversity();
+        System.out.println("universityName = " + universityName);
+        this.universityName = universityName;
         num = 1;
         String name = s.getMajor1();
         major = new HashMap<>();
@@ -142,9 +143,8 @@ class University extends ComparableNode<University> implements AddAble<Student> 
     public void add(Student s) {
         String name = s.getMajor1();
         if (major.containsKey(name)) {
-            Major m = major.remove(name);
+            Major m = major.get(name);
             m.add(s);
-            major.put(name, m);
         } else {
             major.put(name, new Major(name, s));
         }
@@ -162,8 +162,8 @@ class University extends ComparableNode<University> implements AddAble<Student> 
 }
 
 class Major extends ComparableNode<Major> implements AddAble<Student> {
-    String majorName;
-    ArrayList<Student> students;
+    private String majorName;
+    private ArrayList<Student> students;
 
     Major(String majorName, Student s) {
         students = new ArrayList<>();
