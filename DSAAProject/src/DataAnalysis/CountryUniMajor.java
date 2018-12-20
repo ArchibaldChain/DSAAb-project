@@ -40,6 +40,7 @@ public class CountryUniMajor {
                 country.put(name, new Country(name, s));
             }
         }
+        sort();
     }
 
     public static void setCountryUniMajor(ArrayList<Student> students) {
@@ -57,7 +58,6 @@ public class CountryUniMajor {
 
     @Override
     public String toString() {
-        sort();
         StringBuilder s = new StringBuilder();
         for (Country p : sortedCountry.toArray(new Country[0])) {
             s.append(p.toString());

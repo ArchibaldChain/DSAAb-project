@@ -34,6 +34,7 @@ public class CityUniMajor {
                 domesticCity.put(name, new DomesticCity(name, s));
             }
         }
+        sort();
     }
 
     public static void main(String[] args) {
@@ -47,7 +48,7 @@ public class CityUniMajor {
         System.out.println(cityUniMajor.toString());
     }
 
-    public void sort() {
+    private void sort() {
         sortedDomesticCity = new MyTreeMap<>(domesticCity);
         for (DomesticCity c :
                 sortedDomesticCity.toArray(new DomesticCity[0])) {
@@ -57,7 +58,6 @@ public class CityUniMajor {
 
     @Override
     public String toString() {
-        sort();
         StringBuilder s = new StringBuilder();
         for (DomesticCity p : sortedDomesticCity.toArray(new DomesticCity[0])) {
             s.append(p.toString());
@@ -69,7 +69,7 @@ public class CityUniMajor {
 }
 
 class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Student> {
-    String cityName;
+    private String cityName;
     private HashMap<String, DomesticUniversity> university;
     private MyTreeMap<String, DomesticUniversity> sortedUniversity;
 

@@ -11,7 +11,7 @@ public class Start2 {
     public static void main(String[] args) {
         //Project_data_20181208.csv
         //ProjectData.csv
-        CSVReader reader = new CSVReader("FileStorage\\Project_data_20181208.csv "); // Use the relative path of the .csv file
+        CSVReader reader = new CSVReader("FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
         // 出生统计
         BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));

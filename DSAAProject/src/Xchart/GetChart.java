@@ -66,7 +66,6 @@ public class GetChart implements ExampleChart<PieChart> {
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
         chart.getStyler().setHasAnnotations(true);
 
-        System.out.println(this.labels.length +" "+this.values.length);
 
         List xAxisLabel = Arrays.asList(this.labels);
         List<Integer> data1 = new ArrayList<>();
@@ -74,13 +73,13 @@ public class GetChart implements ExampleChart<PieChart> {
             data1.add(i);
         }
         // Series
-        System.out.println(xAxisLabel.size()+" "+ data1.size());
+
         chart.addSeries(seriesName1, xAxisLabel, data1);
 
         if (this.values2.length > 0){
             List<Integer> data2 = new ArrayList<>();
             for (int i: this.values2) {
-                data1.add(i);
+                data2.add(i);
             }
             chart.addSeries(seriesName2, xAxisLabel, data2);
         }

@@ -31,7 +31,7 @@ public class DrawBarChart implements ExampleChart<CategoryChart> {
     public static void main(String[] args) {
 
         DrawBarChart drawBarChart = new DrawBarChart();
-        CategoryChart chart = drawBarChart.getBarChart();
+        CategoryChart chart = drawBarChart.getChart();
         new SwingWrapper<CategoryChart>(chart).displayChart();
     }
 
@@ -84,7 +84,7 @@ public class DrawBarChart implements ExampleChart<CategoryChart> {
         lista.add(-4);
         lista.add(-5);
         lista.add(-6);
-        lista.add(-7);
+
 
         ArrayList<Integer> listb = new ArrayList<>();
         listb.add(0);
@@ -92,7 +92,7 @@ public class DrawBarChart implements ExampleChart<CategoryChart> {
         listb.add(0);
 
         // Series
-        Histogram histogram1 = new Histogram(lista, 14, -14,14);
+        Histogram histogram1 = new Histogram(lista, 13, -6,7);
         //Histogram histogram2 = new Histogram(listb,4,-2,4);
         chart.addSeries("histogram 1", histogram1.getxAxisData(), histogram1.getyAxisData());
         //chart.addSeries("histogram 2", histogram2.getxAxisData(), histogram2.getyAxisData());
