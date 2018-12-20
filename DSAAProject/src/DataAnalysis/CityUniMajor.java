@@ -22,7 +22,7 @@ public class CityUniMajor {
     public CityUniMajor(Student[] student) {
         domesticCity = new HashMap<>();
         for (Student s : student) {
-            if (!s.getDream().equals("国内读研") || s.getDomesticCity().equals("")
+            if (!s.getDream().equals("内地读研") || s.getDomesticCity().equals("")
                     || s.getDomesticUniversity().equals("")) {
                 continue;
             }

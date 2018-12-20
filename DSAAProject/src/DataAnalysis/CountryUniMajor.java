@@ -17,17 +17,10 @@ import java.util.HashMap;
 public class CountryUniMajor {
     private HashMap<String, Country> country;
 
-    public static void main(String[] args) {
-        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
-        ArrayList<Student> students = reader.parse(); // Format the data into a list
-    }
-
-    private MyTreeMap<String, Country> sortedCountry;
-
     public CountryUniMajor(Student[] student) {
         country = new HashMap<>();
         for (Student s : student) {
-            if (!s.getDream().equals("出国深造") || s.getAbroadCountry().equals("")
+            if (!s.getDream().equals("出国留学") || s.getAbroadCountry().equals("")
                     || s.getAbroadUniversity().equals("") || s.getAbroadCountry().equals("中")) {
                 continue;
             }
@@ -40,6 +33,15 @@ public class CountryUniMajor {
                 country.put(name, new Country(name, s));
             }
         }
+    }
+
+    private MyTreeMap<String, Country> sortedCountry;
+
+    public static void main(String[] args) {
+        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
+        ArrayList<Student> students = reader.parse(); // Format the data into a list
+        CountryUniMajor countryUniMajor = new CountryUniMajor(students.toArray(new Student[0]));
+        System.out.println(countryUniMajor.toString());
     }
 
     public static void setCountryUniMajor(ArrayList<Student> students) {
