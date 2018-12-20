@@ -4,6 +4,7 @@ import Student.CSVReader;
 import Student.Student;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * ProjectName:    DSAAProject
@@ -64,6 +65,44 @@ public class Count {
         return returnArray;
     }
 
+
+    static int[] CountWorkType(Student[] students) {
+        /*
+        工作类型统计（国企 自己创业 其他企业）
+         */
+        int elseCount = 0;
+        int startupCount = 0;
+        int stateCompanyCount = 0;
+        for (Student s : students) {
+            String WorkType = s.getWorkPlace();
+            if (WorkType.equals("国企")) {
+                stateCompanyCount++;
+            } else if (WorkType.equals("自己创业")) {
+                startupCount++;
+            } else if (!WorkType.isEmpty()) {
+                elseCount++;
+            }
+        }
+        int returnArray[] = new int[]{stateCompanyCount, startupCount, elseCount};
+        return returnArray;
+    }
+
+    static ArrayList<Integer> SalaryCount(Student[] students) {
+        /*
+        将所有薪资排序并输出
+         */
+        ArrayList<Integer> SalaryList = new ArrayList<>();
+        for (Student s : students) {
+            float salary = s.getSalary();
+            if (s.getWorkPlace().isEmpty() || salary == 0) {
+                continue;
+            }
+            SalaryList.add((int) salary);
+        }
+        Collections.sort(SalaryList);
+        return SalaryList;
+    }
+
     public static void main(String[] args) {
         CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
@@ -73,6 +112,14 @@ public class Count {
         // 硕博意愿
         int[] DegreeArray = CountDegree(students.toArray(new Student[0]));
         System.out.println(DegreeArray[0] + " " + DegreeArray[1] + " " + DegreeArray[2] + " " + DegreeArray[3]);
+        // 工作类型
+        int[] WorkTypeArray = CountWorkType(students.toArray(new Student[0]));
+        System.out.println(WorkTypeArray[0] + " " + WorkTypeArray[1] + " " + WorkTypeArray[2]);
+        // 工资统计
+        ArrayList<Integer> salaryList = SalaryCount(students.toArray(new Student[0]));
+        for (int i = 0; i < salaryList.size(); i++) {
+            System.out.println(salaryList.get(i));
+        }
 
 
     }
