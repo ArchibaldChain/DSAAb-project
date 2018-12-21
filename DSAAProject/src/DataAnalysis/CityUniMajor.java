@@ -6,6 +6,8 @@ import Student.Student;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static DataAnalysis.CountryUniMajor.getInts;
+
 /*
  * ProjectName:    DSAAProject
  * Author:         PRD
@@ -17,7 +19,6 @@ import java.util.HashMap;
 public class CityUniMajor {
     private HashMap<String, DomesticCity> domesticCity;
     private MyTreeMap<String, DomesticCity> sortedDomesticCity;
-    public int Unicount = 0;
 
     public CityUniMajor(Student[] student) {
         domesticCity = new HashMap<>();
@@ -34,6 +35,7 @@ public class CityUniMajor {
                 domesticCity.put(name, new DomesticCity(name, s));
             }
         }
+        sort();
     }
 
     public static void main(String[] args) {
@@ -47,7 +49,7 @@ public class CityUniMajor {
         System.out.println(cityUniMajor.toString());
     }
 
-    public void sort() {
+    private void sort() {
         sortedDomesticCity = new MyTreeMap<>(domesticCity);
         for (DomesticCity c :
                 sortedDomesticCity.toArray(new DomesticCity[0])) {
@@ -57,7 +59,6 @@ public class CityUniMajor {
 
     @Override
     public String toString() {
-        sort();
         StringBuilder s = new StringBuilder();
         for (DomesticCity p : sortedDomesticCity.toArray(new DomesticCity[0])) {
             s.append(p.toString());
@@ -66,12 +67,69 @@ public class CityUniMajor {
 
     }
 
+    /**
+     * The following four method was used to graph
+     * @return the demoestic city name String with the order from large to small
+     */
+    public String[] getDomesticCityLabel(){
+        ArrayList<String> s = new ArrayList<>();
+        for (DomesticCity c : sortedDomesticCity.toArray(new DomesticCity[0])) {
+            s.add(c.cityName);
+        }
+        return s.toArray(new String[0]);
+    }
+
+    /**
+     * @return the number of every country
+     */
+    public int[] getDomesticCityValue(){
+        int[] a = new int[sortedDomesticCity.size()];
+        int i = 0;
+        for (DomesticCity c : sortedDomesticCity.toArray(new DomesticCity[0])) {
+            a[i] = c.num;
+            i++;
+        }
+        return a;
+    }
+
+    /**
+     * @return the university label
+     */
+    public String[] getUniversityName(){
+        ArrayList<String> s = new ArrayList<>();
+        for (DomesticCity c : sortedDomesticCity.toArray(new DomesticCity[0])) {
+            for (DomesticUniversity u:c.sortedUniversity.toArray(new DomesticUniversity[0])) {
+                s.add(u.universityName);
+            }
+        }
+        return s.toArray(new String[0]);
+    }
+
+    /**
+     * @return the number of every label
+     */
+    public int[] getUniversityValue(){
+        ArrayList<Integer> i = new ArrayList<>();
+        for (DomesticCity c : sortedDomesticCity.toArray(new DomesticCity[0])) {
+            for (DomesticUniversity u:c.sortedUniversity.toArray(new DomesticUniversity[0])) {
+                i.add(u.num);
+            }
+        }
+        return getArray(i);
+    }
+
+
+
+    private int[] getArray(ArrayList<Integer> n){
+        return getInts(n);
+    }
+
 }
 
 class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Student> {
     String cityName;
     private HashMap<String, DomesticUniversity> university;
-    private MyTreeMap<String, DomesticUniversity> sortedUniversity;
+    MyTreeMap<String, DomesticUniversity> sortedUniversity;
 
     /**
      * When meet the new city
@@ -123,8 +181,8 @@ class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Stude
 
 class DomesticUniversity extends ComparableNode<DomesticUniversity> implements AddAble<Student> {
     String universityName;
-    HashMap<String, DomesticMajor> major;
-    MyTreeMap<String, DomesticMajor> sortedMajor;
+    private HashMap<String, DomesticMajor> major;
+    private MyTreeMap<String, DomesticMajor> sortedMajor;
 
     DomesticUniversity(String universityName, Student s) {
         this.universityName = universityName;

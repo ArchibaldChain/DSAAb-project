@@ -4,10 +4,9 @@ import Student.CSVReader;
 import Student.Student;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
 import java.util.Collections;
-=======
->>>>>>> 2 count methods added
+
+import static DataAnalysis.CountryUniMajor.getInts;
 
 /**
  * ProjectName:    DSAAProject
@@ -26,9 +25,9 @@ public class Count {
         int workCount = 0;
         for (Student s : student) {
             String dream = s.getDream();
-            if (dream.equals("国内读研")) {
+            if (dream.equals("国内读研") || dream.equals("内地读研")) {
                 domesticCount++;
-            } else if (dream.equals("出国深造")) {
+            } else if (dream.equals("出国深造") || dream.equals("香港读研") || dream.equals("出国留学")) {
                 overseasCount++;
             } else if (dream.equals("毕业工作")) {
                 workCount++;
@@ -49,13 +48,13 @@ public class Count {
         for (Student s : student) {
             String degree = s.getDegree();
             String dream = s.getDream();
-            if (dream.equals("国内读研")) {
+            if (dream.equals("国内读研") || dream.equals("内地读研")) {
                 if (degree.equals("硕士")) {
                     domesticMasterCount++;
                 } else if (degree.equals("博士")) {
                     domesticPhdCount++;
                 }
-            } else if (dream.equals("出国深造")) {
+            } else if (dream.equals("出国深造") || dream.equals("香港读研") || dream.equals("出国留学")) {
                 if (degree.equals("硕士")) {
                     overseasMasterCount++;
                 } else if (degree.equals("博士")) {
@@ -68,9 +67,8 @@ public class Count {
         return returnArray;
     }
 
-<<<<<<< HEAD
 
-    static int[] CountWorkType(Student[] students) {
+    public static int[] CountWorkType(Student[] students) {
         /*
         工作类型统计（国企 自己创业 其他企业）
          */
@@ -87,11 +85,10 @@ public class Count {
                 elseCount++;
             }
         }
-        int returnArray[] = new int[]{stateCompanyCount, startupCount, elseCount};
-        return returnArray;
+        return new int[]{stateCompanyCount, startupCount, elseCount};
     }
 
-    static ArrayList<Integer> SalaryCount(Student[] students) {
+    public static int[] SalaryCount(Student[] students) {
         /*
         将所有薪资排序并输出
          */
@@ -104,11 +101,10 @@ public class Count {
             SalaryList.add((int) salary);
         }
         Collections.sort(SalaryList);
-        return SalaryList;
+
+        return getInts(SalaryList);
     }
 
-=======
->>>>>>> 2 count methods added
     public static void main(String[] args) {
         CSVReader reader = new CSVReader("FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
@@ -118,17 +114,14 @@ public class Count {
         // 硕博意愿
         int[] DegreeArray = CountDegree(students.toArray(new Student[0]));
         System.out.println(DegreeArray[0] + " " + DegreeArray[1] + " " + DegreeArray[2] + " " + DegreeArray[3]);
-<<<<<<< HEAD
         // 工作类型
         int[] WorkTypeArray = CountWorkType(students.toArray(new Student[0]));
         System.out.println(WorkTypeArray[0] + " " + WorkTypeArray[1] + " " + WorkTypeArray[2]);
         // 工资统计
-        ArrayList<Integer> salaryList = SalaryCount(students.toArray(new Student[0]));
+        /*ArrayList<Integer> salaryList = SalaryCount(students.toArray(new Student[0]));
         for (int i = 0; i < salaryList.size(); i++) {
             System.out.println(salaryList.get(i));
-        }
-=======
->>>>>>> 2 count methods added
+        }*/
 
 
     }
