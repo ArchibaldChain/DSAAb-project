@@ -149,6 +149,15 @@ public class Student {
             }
 
         }
+
+        if (this.abroadCountry.equals("香港")){
+            this.abroadCountry = "中国香港";
+        }
+
+        if (!this.workPlace.equals("") && !this.workPlace.equals("其他企业")  && !this.workPlace.equals("国企")
+                && !this.workPlace.equals("自主创业") ){
+            this.workPlace = "其他企业";
+        }
     }
 
     private String removeLastCharacter(String pro, String words) {

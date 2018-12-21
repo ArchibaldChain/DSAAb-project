@@ -21,7 +21,7 @@ public class BornPlace {
         province = new HashMap<>();
         for (Student s : student) {
             String name = s.getProvince();
-            if (name.equals("")){
+            if (name.equals("")) {
                 continue;
             }
             if (province.containsKey(name)) {
@@ -32,6 +32,7 @@ public class BornPlace {
                 province.put(name, new Province(name, s));
             }
         }
+        sort();
     }
 
     public static void main(String[] args) {
@@ -42,12 +43,13 @@ public class BornPlace {
     private HashMap<String, Province> province;
     private MyTreeMap<String, Province> sortedProvince;
 
+
     public static void setBornPlace(ArrayList<Student> students) {
         BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
         System.out.println(bornPlace.toString());
     }
 
-    public void sort() {
+    private void sort() {
         sortedProvince = new MyTreeMap<>(province);
         for (Province p :
                 sortedProvince.toArray(new Province[0])) {
@@ -57,7 +59,6 @@ public class BornPlace {
 
     @Override
     public String toString() {
-        sort();
         StringBuilder s = new StringBuilder();
         for (Province p : sortedProvince.toArray(new Province[0])) {
             s.append(p.toString());
@@ -65,12 +66,60 @@ public class BornPlace {
         return s.toString();
 
     }
+
+    /**
+     * The rest three method was used to draw graph
+     * @return the string of the province name with the order from large to small
+     */
+    public String[] provinceLabel(){
+        ArrayList<String> s = new ArrayList<>();
+        for (Province p : sortedProvince.toArray(new Province[0])) {
+            s.add(p.provinceName);
+        }
+        return s.toArray(new String[0]);
+    }
+
+    /**
+     * This is for getting the number of people in correspond province
+     * @return a array with the number of every province
+     */
+    public int[] provinceNumber(){
+        ArrayList<Integer> n = new ArrayList<>();
+        for (Province p : sortedProvince.toArray(new Province[0])) {
+            n.add(p.num);
+        }
+        return getArray(n);
+    }
+
+    /**
+     * This method is for return the number of students who will comeback their hometown
+     * @return a array that contains the number of students who will comeback
+     */
+    public int[] backHometownNumber(){
+        ArrayList<Integer> n = new ArrayList<>();
+        for (Province p : sortedProvince.toArray(new Province[0])) {
+            n.add(p.returnHometown);
+        }
+        return getArray(n);
+    }
+
+    private int[] getArray(ArrayList<Integer> n){
+        int[] a = new int[n.size()];
+        Integer[] b = n.toArray(new Integer[0]);
+        for (int i = 0; i < a.length; i++) {
+            a[i] = b[i];
+        }
+        return a;
+    }
+
+
 }
 
 class Province extends ComparableNode<Province> implements AddAble<Student> {
     String provinceName;
     private HashMap<String, City> city;
     private MyTreeMap<String, City> sortedCity;
+    int returnHometown; //count the number: how many student will come back their province
 
     /**
      * When meet the new province
@@ -84,6 +133,11 @@ class Province extends ComparableNode<Province> implements AddAble<Student> {
         String name = s.getCity();
         city = new HashMap<>();
         city.put(name, new City(name, s));
+        returnHometown = 0;
+
+        if (s.getProvince().equals(s.getWorkProvince())){
+            returnHometown++;
+        }
     }
 
     void sort() {
@@ -108,6 +162,10 @@ class Province extends ComparableNode<Province> implements AddAble<Student> {
         } else {
             city.put(name, new City(name, s));
         }
+
+        if (s.getProvince().equals(s.getWorkProvince())){
+            returnHometown++;
+        }
         num++;
     }
 
@@ -122,9 +180,9 @@ class Province extends ComparableNode<Province> implements AddAble<Student> {
 }
 
 class City extends ComparableNode<City> implements AddAble<Student> {
-    String cityName;
-    HashMap<String, District> district;
-    MyTreeMap<String, District> sortedDistrict;
+    private String cityName;
+    private HashMap<String, District> district;
+    private MyTreeMap<String, District> sortedDistrict;
 
     City(String cityName, Student s) {
         this.cityName = cityName;
@@ -162,8 +220,8 @@ class City extends ComparableNode<City> implements AddAble<Student> {
 }
 
 class District extends ComparableNode<District> implements AddAble<Student> {
-    String districtName;
-    ArrayList<Student> students;
+    private String districtName;
+    private ArrayList<Student> students;
 
     District(String districtName, Student s) {
         students = new ArrayList<>();

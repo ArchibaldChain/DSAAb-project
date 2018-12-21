@@ -17,28 +17,30 @@ import java.util.HashMap;
 public class CityUniMajor {
     private HashMap<String, DomesticCity> domesticCity;
     private MyTreeMap<String, DomesticCity> sortedDomesticCity;
+    public int Unicount = 0;
 
     public CityUniMajor(Student[] student) {
         domesticCity = new HashMap<>();
         for (Student s : student) {
-            if (!s.getDream().equals("国内读研") || s.getDomesticCity().equals("")
+            if (!s.getDream().equals("内地读研") && !s.getDream().equals("国内读研")|| s.getDomesticCity().equals("")
                     || s.getDomesticUniversity().equals("")) {
                 continue;
             }
             String name = s.getDomesticCity();
             if (domesticCity.containsKey(name)) {
-                DomesticCity c = domesticCity.remove(name);
+                DomesticCity c = domesticCity.get(name);
                 c.add(s);
-                domesticCity.put(name, c);// This is because get is remove
             } else {
                 domesticCity.put(name, new DomesticCity(name, s));
             }
         }
+        sort();
     }
 
     public static void main(String[] args) {
         CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
+
     }
 
     public static void setCityUniMajor(ArrayList<Student> students) {
@@ -46,7 +48,7 @@ public class CityUniMajor {
         System.out.println(cityUniMajor.toString());
     }
 
-    public void sort() {
+    private void sort() {
         sortedDomesticCity = new MyTreeMap<>(domesticCity);
         for (DomesticCity c :
                 sortedDomesticCity.toArray(new DomesticCity[0])) {
@@ -56,7 +58,6 @@ public class CityUniMajor {
 
     @Override
     public String toString() {
-        sort();
         StringBuilder s = new StringBuilder();
         for (DomesticCity p : sortedDomesticCity.toArray(new DomesticCity[0])) {
             s.append(p.toString());
@@ -68,7 +69,7 @@ public class CityUniMajor {
 }
 
 class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Student> {
-    String cityName;
+    private String cityName;
     private HashMap<String, DomesticUniversity> university;
     private MyTreeMap<String, DomesticUniversity> sortedUniversity;
 
@@ -81,7 +82,7 @@ class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Stude
     DomesticCity(String cityName, Student s) {
         this.cityName = cityName;
         num = 1;
-        String name = s.getDomesticCity();
+        String name = s.getDomesticUniversity();
         university = new HashMap<>();
         university.put(name, new DomesticUniversity(name, s));
     }
@@ -102,9 +103,8 @@ class DomesticCity extends ComparableNode<DomesticCity> implements AddAble<Stude
     public void add(Student s) {
         String name = s.getDomesticUniversity();
         if (university.containsKey(name)) {
-            DomesticUniversity u = university.remove(name);
+            DomesticUniversity u = university.get(name);
             u.add(s);
-            university.put(name, u);//This is because get means remove
         } else {
             university.put(name, new DomesticUniversity(name, s));
         }
@@ -127,7 +127,7 @@ class DomesticUniversity extends ComparableNode<DomesticUniversity> implements A
     MyTreeMap<String, DomesticMajor> sortedMajor;
 
     DomesticUniversity(String universityName, Student s) {
-        this.universityName = s.getDomesticUniversity();
+        this.universityName = universityName;
         num = 1;
         String name = s.getMajor2();
         major = new HashMap<>();
@@ -142,9 +142,8 @@ class DomesticUniversity extends ComparableNode<DomesticUniversity> implements A
     public void add(Student s) {
         String name = s.getMajor2();
         if (major.containsKey(name)) {
-            DomesticMajor m = major.remove(name);
+            DomesticMajor m = major.get(name);
             m.add(s);
-            major.put(name, m);
         } else {
             major.put(name, new DomesticMajor(name, s));
         }
