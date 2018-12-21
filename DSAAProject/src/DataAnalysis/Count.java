@@ -103,8 +103,62 @@ public class Count {
         return SalaryList;
     }
 
+    static ArrayList<Double> DomesticGPACount(Student[] students) {
+        /*
+        将所有国内读研同学排序并输出
+         */
+        ArrayList<Double> domesticGpaList = new ArrayList<>();
+        for (Student s : students) {
+            if (s.getDream().equals("内地读研")) {
+                float GPA = s.getGPA();
+                if (GPA == 0) {
+                    continue;
+                }
+                domesticGpaList.add((double) GPA);
+            }
+        }
+        Collections.sort(domesticGpaList);
+        return domesticGpaList;
+    }
+
+    static ArrayList<Double> OverseasGPACount(Student[] students) {
+        /*
+        将所有出国留学+香港同学排序并输出
+         */
+        ArrayList<Double> overseasGpaList = new ArrayList<>();
+        for (Student s : students) {
+            if (s.getDream().equals("出国留学") || s.getDream().equals("香港读研")) {
+                float GPA = s.getGPA();
+                if (GPA == 0) {
+                    continue;
+                }
+                overseasGpaList.add((double) GPA);
+            }
+        }
+        Collections.sort(overseasGpaList);
+        return overseasGpaList;
+    }
+
+    static ArrayList<Double> WorkGPACount(Student[] students) {
+        /*
+        将所有毕业工作同学排序并输出
+         */
+        ArrayList<Double> workGpaList = new ArrayList<>();
+        for (Student s : students) {
+            if (s.getDream().equals("毕业工作")) {
+                float GPA = s.getGPA();
+                if (GPA == 0) {
+                    continue;
+                }
+                workGpaList.add((double) GPA);
+            }
+        }
+        Collections.sort(workGpaList);
+        return workGpaList;
+    }
+
     public static void main(String[] args) {
-        CSVReader reader = new CSVReader("FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
+        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
         // 毕业去向
         int[] DreamArray = CountDream(students.toArray(new Student[0]));
@@ -120,7 +174,20 @@ public class Count {
         for (int i = 0; i < salaryList.size(); i++) {
             System.out.println(salaryList.get(i));
         }
-
-
+        // 国内GPA统计
+        ArrayList<Double> domesticGpaList = DomesticGPACount(students.toArray(new Student[0]));
+        for (int i = 0; i < domesticGpaList.size(); i++) {
+            System.out.println(domesticGpaList.get(i));
+        }
+        // 国外GPA统计
+        ArrayList<Double> overseasGpaList = OverseasGPACount(students.toArray(new Student[0]));
+        for (int i = 0; i < overseasGpaList.size(); i++) {
+            System.out.println(overseasGpaList.get(i));
+        }
+        // 国外GPA统计
+        ArrayList<Double> workGpaList = WorkGPACount(students.toArray(new Student[0]));
+        for (int i = 0; i < workGpaList.size(); i++) {
+            System.out.println(workGpaList.get(i));
+        }
     }
 }

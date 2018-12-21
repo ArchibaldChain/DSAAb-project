@@ -11,16 +11,16 @@ public class Start2 {
     public static void main(String[] args) {
         //Project_data_20181208.csv
         //ProjectData.csv
-        CSVReader reader = new CSVReader("FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
+        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
         // 出生统计
         BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
-        FileIO.fileWriter(bornPlace.toString(), "FileStorage\\BornPlace.txt");
+        FileIO.fileWriter(bornPlace.toString(), "DSAAProject\\FileStorage\\BornPlace.txt");
         // 国外深造
         CountryUniMajor countryUniMajor = new CountryUniMajor(students.toArray(new Student[0]));
-        FileIO.fileWriter(countryUniMajor.toString(), "FileStorage\\Country Uni Major.txt");
+        FileIO.fileWriter(countryUniMajor.toString(), "DSAAProject\\FileStorage\\Country Uni Major.txt");
         // 国内读研
         CityUniMajor cityUniMajor = new CityUniMajor(students.toArray(new Student[0]));
-        FileIO.fileWriter(cityUniMajor.toString(), "FileStorage\\DomesticCity Uni Major.txt");
+        FileIO.fileWriter(cityUniMajor.toString(), "DSAAProject\\FileStorage\\DomesticCity Uni Major.txt");
     }
 }
