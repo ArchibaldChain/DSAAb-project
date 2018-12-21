@@ -37,6 +37,16 @@ public class HistogramChart  {
     }
 
     public void draw(String path, String title){
+        drawing(path, title);
+        chart.getStyler().setOverlapped(true);
+    }
+
+    public void draw2(String path, String title){
+        drawing(path, title);
+        chart.getStyler().setOverlapped(false);
+    }
+
+    private void drawing(String path, String title) {
         new SwingWrapper<>(chart).displayChart(title);
 
         try {
@@ -44,7 +54,6 @@ public class HistogramChart  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void addHistogram(int[] value, String seriesName){

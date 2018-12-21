@@ -43,12 +43,12 @@ public class Start {
         CountryUniMajor countryUniMajor = new CountryUniMajor(students.toArray(new Student[0]));
         FileIO.fileWriter(countryUniMajor.toString(), "FileStorage\\Study abroad.txt");
         GetChart getChart1 = new GetChart(countryUniMajor.getCountryNameLabels(), countryUniMajor.getCountryValue());
-        getChart1.drawPieChart("FileStorage/Study Abroad/Pie Chart", "Study Abroad");
-        getChart1.drawBarChart("FileStorage/Study Abroad/Bar Chart", "Study Abroad",
+        getChart1.drawPieChart("FileStorage/Study Abroad/Pie Chart", "Study Abroad Pie Chart");
+        getChart1.drawBarChart("FileStorage/Study Abroad/Bar Chart", "Study Abroad Bar Chart",
                 "number of people", "Country","number");
         GetChart getChart2 = new GetChart(countryUniMajor.getUniversityName(), countryUniMajor.getUniversityValue());
-        getChart2.drawPieChart("FileStorage/Study Abroad/University Pie Chart", "Study Abroad");
-        getChart2.drawBarChart("FileStorage/Study Abroad/University Bar Chart", "Study Abroad",
+        getChart2.drawPieChart("FileStorage/Study Abroad/University Pie Chart", "Study Abroad University Pie Chart");
+        getChart2.drawBarChart("FileStorage/Study Abroad/University Bar Chart", "Study Abroad University Bar Chart",
                 "number of people", "University","number");
 
     }
@@ -58,12 +58,12 @@ public class Start {
         CityUniMajor cityUniMajor = new CityUniMajor(students.toArray(new Student[0]));
         FileIO.fileWriter(cityUniMajor.toString(), "FileStorage\\Domestic Study.txt");
         GetChart getChart1 = new GetChart(cityUniMajor.getDomesticCityLabel(), cityUniMajor.getDomesticCityValue());
-        getChart1.drawPieChart("FileStorage/Domestic Study/Pie Chart", "Study Abroad");
-        getChart1.drawBarChart("FileStorage/Domestic Study/Bar Chart", "Study Abroad",
+        getChart1.drawPieChart("FileStorage/Domestic Study/Pie Chart", "Domestic Study Pie Chart");
+        getChart1.drawBarChart("FileStorage/Domestic Study/Bar Chart", "Domestic Study Bar Chart",
                 "number of people", "Country","number");
         GetChart getChart2 = new GetChart(cityUniMajor.getUniversityName(), cityUniMajor.getUniversityValue());
-        getChart2.drawPieChart("FileStorage/Domestic Study/University Pie Chart", "Study Abroad");
-        getChart2.drawBarChart("FileStorage/Domestic Study/University Bar Chart", "Study Abroad",
+        getChart2.drawPieChart("FileStorage/Domestic Study/University Pie Chart", "Domestic University Pie Chart");
+        getChart2.drawBarChart("FileStorage/Domestic Study/University Bar Chart", "Domestic University Bar Chart",
                 "number of people", "University","number");
 
     }
@@ -88,6 +88,12 @@ public class Start {
                 Count.CountWorkType(students));
         getWorkPlaceChart.drawDonutChart("FileStorage/Other Graph/Work pace Pie Chart", "Work Place");
 
+
+        HistogramChart GPA = new HistogramChart("GPA", "GPA", "number");
+        GPA.addHistogram(Count.DomesticGPACount(students), "境内读研");
+        GPA.addHistogram(Count.OverseasGPACount(students),"出境深造");
+        GPA.addHistogram(Count.WorkGPACount(students),"毕业就业");
+        GPA.draw2("FileStorage/Other Graph/GPA Histogram", "GPA distribution");
 
     }
 
