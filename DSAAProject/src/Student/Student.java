@@ -154,9 +154,16 @@ public class Student {
             this.abroadCountry = "中国香港";
         }
 
-        if (!this.workPlace.equals("") && !this.workPlace.equals("其他企业")  && !this.workPlace.equals("国企")
-                && !this.workPlace.equals("自主创业") ){
-            this.workPlace = "其他企业";
+        if (domesticCity.equals("深圳")){
+            domesticCity = "广东";
+        }
+
+        if (abroadUniversity.equals("卡内基梅隆")){
+            abroadUniversity = "卡耐基梅隆";
+        }
+
+        if (this.salary > 1000){
+            salary = salary/1000;
         }
     }
 

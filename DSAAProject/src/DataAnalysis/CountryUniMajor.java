@@ -43,12 +43,7 @@ public class CountryUniMajor {
         sort();
     }
 
-    public static void setCountryUniMajor(ArrayList<Student> students) {
-        CountryUniMajor countryUniMajor = new CountryUniMajor(students.toArray(new Student[0]));
-        System.out.println(countryUniMajor.toString());
-    }
-
-    public void sort() {
+    private void sort() {
         sortedCountry = new MyTreeMap<>(country);
         for (Country c :
                 sortedCountry.toArray(new Country[0])) {
@@ -65,12 +60,73 @@ public class CountryUniMajor {
         return s.toString();
 
     }
+
+    /**
+     * The following four method was used to graph
+     * @return the country name String with the order from large to small
+     */
+    public String[] getCountryNameLabels(){
+        ArrayList<String> s = new ArrayList<>();
+        for (Country c : sortedCountry.toArray(new Country[0])) {
+            s.add(c.countryName);
+        }
+        return s.toArray(new String[0]);
+    }
+
+    /**
+     * @return the number of every country
+     */
+    public int[] getCountryValue(){
+        int[] a = new int[sortedCountry.size()];
+        int i = 0;
+        for (Country c : sortedCountry.toArray(new Country[0])) {
+            a[i] = c.num;
+            i++;
+        }
+        return a;
+    }
+
+    /**
+     * @return the university label
+     */
+    public String[] getUniversityName(){
+        ArrayList<String> s = new ArrayList<>();
+        for (Country c : sortedCountry.toArray(new Country[0])) {
+            for (University u:c.sortedUniversity.toArray(new University[0])) {
+                s.add(u.universityName);
+            }
+        }
+        return s.toArray(new String[0]);
+    }
+
+    /**
+     * @return the number of every label
+     */
+    public int[] getUniversityValue(){
+        ArrayList<Integer> i = new ArrayList<>();
+        for (Country c : sortedCountry.toArray(new Country[0])) {
+            for (University u:c.sortedUniversity.toArray(new University[0])) {
+                i.add(u.num);
+            }
+        }
+        return getInts(i);
+    }
+
+    static int[] getInts(ArrayList<Integer> n) {
+        int[] a = new int[n.size()];
+        Integer[] b = n.toArray(new Integer[0]);
+        for (int i = 0; i < a.length; i++) {
+            a[i] = b[i];
+        }
+        return a;
+    }
 }
+
 
 class Country extends ComparableNode<Country> implements AddAble<Student> {
     String countryName;
     private HashMap<String, University> university;
-    private MyTreeMap<String, University> sortedUniversity;
+    MyTreeMap<String, University> sortedUniversity;
 
     /**
      * When meet the new country
@@ -105,7 +161,6 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
             University u = university.get(name);
             u.add(s);
         } else {
-            System.out.println("name = " + name);
             university.put(name, new University(name, s));
         }
         num++;
@@ -122,12 +177,11 @@ class Country extends ComparableNode<Country> implements AddAble<Student> {
 }
 
 class University extends ComparableNode<University> implements AddAble<Student> {
-    private String universityName;
+    String universityName;
     private HashMap<String, Major> major;
     private MyTreeMap<String, Major> sortedMajor;
 
     University(String universityName, Student s) {
-        System.out.println("universityName = " + universityName);
         this.universityName = universityName;
         num = 1;
         String name = s.getMajor1();

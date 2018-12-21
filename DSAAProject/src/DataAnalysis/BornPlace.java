@@ -5,6 +5,7 @@ import Student.Student;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import static DataAnalysis.CountryUniMajor.getInts;
 
 
 /**
@@ -43,11 +44,6 @@ public class BornPlace {
     private HashMap<String, Province> province;
     private MyTreeMap<String, Province> sortedProvince;
 
-
-    public static void setBornPlace(ArrayList<Student> students) {
-        BornPlace bornPlace = new BornPlace(students.toArray(new Student[0]));
-        System.out.println(bornPlace.toString());
-    }
 
     private void sort() {
         sortedProvince = new MyTreeMap<>(province);
@@ -104,12 +100,7 @@ public class BornPlace {
     }
 
     private int[] getArray(ArrayList<Integer> n){
-        int[] a = new int[n.size()];
-        Integer[] b = n.toArray(new Integer[0]);
-        for (int i = 0; i < a.length; i++) {
-            a[i] = b[i];
-        }
-        return a;
+        return getInts(n);
     }
 
 
