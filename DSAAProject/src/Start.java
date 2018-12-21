@@ -9,7 +9,7 @@ import Xchart.*;
 
 import java.util.ArrayList;
 
-public class Start2 {
+public class Start {
     public static void main(String[] args) {
         //Project_data_20181208.csv
         //ProjectData.csv
@@ -21,7 +21,7 @@ public class Start2 {
         otherGraph(students.toArray(new Student[0]));
         bornPlace(students);
         studyAbroad(students);
-        studyDomesic(students);
+        studyDomestic(students);
 
     }
 
@@ -53,7 +53,7 @@ public class Start2 {
 
     }
 
-    private static void studyDomesic(ArrayList<Student> students){
+    private static void studyDomestic(ArrayList<Student> students){
         // Study domestic
         CityUniMajor cityUniMajor = new CityUniMajor(students.toArray(new Student[0]));
         FileIO.fileWriter(cityUniMajor.toString(), "FileStorage\\Domestic Study.txt");
@@ -71,20 +71,22 @@ public class Start2 {
     private static void otherGraph(Student[] students){
         HistogramChart salary = new HistogramChart("Salary", "salary (k/month)", "number");
         salary.addHistogram(Count.SalaryCount(students), "salary");
-        System.out.println("** 111");
         salary.draw("FileStorage/Other Graph/Salary Bar Chart", "Salary");
+
 
         GetChart getDreamChart = new GetChart(new String[] {"境内读研", "出境深造", "毕业工作"},
                 Count.CountDream(students));
-        getDreamChart.drawPieChart("FileStorage/Other Graph/Dream Pie Chart", "毕业出路");
+        getDreamChart.drawDonutChart("FileStorage/Other Graph/Dream Pie Chart", "毕业出路");
+
 
         GetChart getDegreeChart = new GetChart(new String[] {"国内硕士", "国内博士", "国外硕士", "国外博士"},
                 Count.CountDegree(students));
-        getDegreeChart.drawPieChart("FileStorage/Other Graph/Degree Pie Chart", "Degree");
+        getDegreeChart.drawDonutChart("FileStorage/Other Graph/Degree Pie Chart", "Degree");
+
 
         GetChart getWorkPlaceChart = new GetChart(new String[] {"国企", "自己创业", "其他企业"},
                 Count.CountWorkType(students));
-        getWorkPlaceChart.drawPieChart("FileStorage/Other Graph/Work pace Pie Chart", "Work Place");
+        getWorkPlaceChart.drawDonutChart("FileStorage/Other Graph/Work pace Pie Chart", "Work Place");
 
 
     }

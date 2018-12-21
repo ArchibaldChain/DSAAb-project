@@ -1,6 +1,5 @@
 package DataAnalysis;
 
-import Student.CSVReader;
 import Student.Student;
 
 import java.util.ArrayList;
@@ -17,10 +16,10 @@ import java.util.HashMap;
 public class CountryUniMajor {
     private HashMap<String, Country> country;
 
-    public static void main(String[] args) {
-        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
-        ArrayList<Student> students = reader.parse(); // Format the data into a list
-    }
+//    public static void main(String[] args) {
+//        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
+//        ArrayList<Student> students = reader.parse(); // Format the data into a list
+//    }
 
     private MyTreeMap<String, Country> sortedCountry;
 

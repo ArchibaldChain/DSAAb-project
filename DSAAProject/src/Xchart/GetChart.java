@@ -3,6 +3,7 @@ package Xchart;
 
 import org.knowm.xchart.*;
 import org.knowm.xchart.internal.chartpart.Chart;
+import org.knowm.xchart.style.PieStyler;
 import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.RadarStyler;
 import org.knowm.xchart.RadarSeries;
@@ -88,6 +89,7 @@ public class GetChart {
         Chart<RadarStyler, RadarSeries>
                 chart = getRadarChart(title, nameSeries1, nameSeries2,data1,data2);
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
+        chart.getStyler().setPlotContentSize(.9);
         new SwingWrapper<>(chart).displayChart(title);
         savePhoto(chart, path);
     }
@@ -108,9 +110,26 @@ public class GetChart {
     public void drawPieChart(String path, String title)  {
 
         PieChart chart = getChart(title);
-        chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
+
+        chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setAnnotationType(PieStyler.AnnotationType.Label);
+        chart.getStyler().setDefaultSeriesRenderStyle(PieSeries.PieSeriesRenderStyle.Pie);
+        new SwingWrapper<>(chart).displayChart(title);
+        chart.getStyler().setAnnotationDistance(1.05);
+        chart.getStyler().setPlotContentSize(.85);
+        savePhoto(chart, path);
+    }
+
+    public void drawDonutChart(String path, String title){
+        PieChart chart = getChart(title);
+        chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setAnnotationType(PieStyler.AnnotationType.Label);
+        chart.getStyler().setAnnotationDistance(1.1);
+        chart.getStyler().setPlotContentSize(.85);
+        chart.getStyler().setDefaultSeriesRenderStyle(PieSeries.PieSeriesRenderStyle.Donut);
         new SwingWrapper<>(chart).displayChart(title);
         savePhoto(chart, path);
+
     }
 
 
@@ -124,8 +143,8 @@ public class GetChart {
                 (title).xAxisTitle(xLabel).yAxisTitle(yLabel).build();
 
         // Customize Chart
-        chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
-        chart.getStyler().setHasAnnotations(true);
+
+        chart.getStyler().setHasAnnotations(false);
         chart.getStyler().setOverlapped(true);
 
 
