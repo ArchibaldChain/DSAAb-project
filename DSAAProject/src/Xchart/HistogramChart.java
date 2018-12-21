@@ -33,17 +33,12 @@ public class HistogramChart  {
         // Customize Chart
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
         chart.getStyler().setAvailableSpaceFill(0.96);
-        chart.getStyler().setOverlapped(true);
+
     }
 
     public void draw(String path, String title){
         drawing(path, title);
         chart.getStyler().setOverlapped(true);
-    }
-
-    public void draw2(String path, String title){
-        drawing(path, title);
-        chart.getStyler().setOverlapped(false);
     }
 
     private void drawing(String path, String title) {

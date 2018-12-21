@@ -93,7 +93,7 @@ public class Start {
         GPA.addHistogram(Count.DomesticGPACount(students), "境内读研");
         GPA.addHistogram(Count.OverseasGPACount(students),"出境深造");
         GPA.addHistogram(Count.WorkGPACount(students),"毕业就业");
-        GPA.draw2("FileStorage/Other Graph/GPA Histogram", "GPA distribution");
+        GPA.draw("FileStorage/Other Graph/GPA Histogram", "GPA distribution");
 
     }
 
