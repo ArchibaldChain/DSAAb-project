@@ -7,12 +7,16 @@ import org.knowm.xchart.style.PieStyler;
 import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.RadarStyler;
 import org.knowm.xchart.RadarSeries;
+
+import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.lang.Math;
+
 
 
 /**
@@ -29,9 +33,9 @@ public class GetChart {
     private int[] values2;
 
     public static void main(String[] args) {
-        String s[] = {"Gold","Silver","Platinum","Copper","Zinc"};
-        int a[] = {24, 21, 39, 17, 40};
-        int b[] = {12, 11, 29, 14, 20};
+        String[] s = {"Gold", "Silver", "Platinum", "Copper", "Zinc"};
+        int[] a = {24, 21, 39, 17, 40};
+        int[] b = {12, 11, 29, 14, 20};
         GetChart getChart = new GetChart(s, b, a);
         getChart.drawBarChart("FileStorage/test graph", "Test Bar Graph","Test bar chart", "Test2",
                 "x","y");
@@ -67,8 +71,9 @@ public class GetChart {
         Chart<RadarStyler, RadarSeries>
                 chart = getRadarChart(title, nameSeries, null, data1, null);
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNW);
-        new SwingWrapper<>(chart).displayChart(title);
-        savePhoto(chart, path);
+
+
+        closeWindowAction(new SwingWrapper<>(chart).displayChart(title), chart, path);
     }
 
     public void drawRadarChart(String path, String title, String nameSeries1, String nameSeries2){
@@ -90,8 +95,9 @@ public class GetChart {
                 chart = getRadarChart(title, nameSeries1, nameSeries2,data1,data2);
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
         chart.getStyler().setPlotContentSize(.9);
-        new SwingWrapper<>(chart).displayChart(title);
-        savePhoto(chart, path);
+
+        closeWindowAction(new SwingWrapper<>(chart).displayChart(title), chart, path);
+
     }
 
     public void drawBarChart(String path, String title, String seriesName, String xLabel, String yLabel){
@@ -103,8 +109,8 @@ public class GetChart {
 
         CategoryChart chart = getBarChart(title, seriesName1, seriesName2, xLabel, yLabel);
         chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
-        new SwingWrapper<>(chart).displayChart(title);
-        savePhoto(chart, path);
+
+        closeWindowAction(new SwingWrapper<>(chart).displayChart(title), chart, path);
     }
 
     public void drawPieChart(String path, String title)  {
@@ -114,10 +120,10 @@ public class GetChart {
         chart.getStyler().setLegendVisible(false);
         chart.getStyler().setAnnotationType(PieStyler.AnnotationType.Label);
         chart.getStyler().setDefaultSeriesRenderStyle(PieSeries.PieSeriesRenderStyle.Pie);
-        new SwingWrapper<>(chart).displayChart(title);
+
         chart.getStyler().setAnnotationDistance(1.05);
         chart.getStyler().setPlotContentSize(.85);
-        savePhoto(chart, path);
+        closeWindowAction(new SwingWrapper<>(chart).displayChart(title), chart, path);
     }
 
     public void drawDonutChart(String path, String title){
@@ -127,8 +133,8 @@ public class GetChart {
         chart.getStyler().setAnnotationDistance(1.1);
         chart.getStyler().setPlotContentSize(.85);
         chart.getStyler().setDefaultSeriesRenderStyle(PieSeries.PieSeriesRenderStyle.Donut);
-        new SwingWrapper<>(chart).displayChart(title);
-        savePhoto(chart, path);
+
+        closeWindowAction(new SwingWrapper<>(chart).displayChart(title), chart, path);
 
     }
 
@@ -139,7 +145,7 @@ public class GetChart {
 
         // Create Chart
         int length = getLength();
-        CategoryChart chart = new CategoryChartBuilder().width(length).height(3*length/5).title
+        CategoryChart chart = new CategoryChartBuilder().width(length).height(4*length/7).title
                 (title).xAxisTitle(xLabel).yAxisTitle(yLabel).build();
 
         // Customize Chart
@@ -194,14 +200,6 @@ public class GetChart {
         return chart;
     }
 
-    private void savePhoto(Chart chart, String path){
-        try {
-            BitmapEncoder.saveBitmap(chart, path, BitmapEncoder.BitmapFormat.PNG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private PieChart getChart(String title) {
 
         // Create Chart
@@ -242,5 +240,20 @@ public class GetChart {
             return 1200;
         else
             return 1600;
+    }
+
+    static void closeWindowAction(JFrame jFrame, Chart chart, String path){
+        jFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int a = Save.savePNG(chart, path);
+
+                if (a == 1) {
+                    jFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+                } else
+                    jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            }
+        });
+
+
     }
 }

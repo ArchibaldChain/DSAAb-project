@@ -2,8 +2,6 @@ package Xchart;
 
 import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -42,13 +40,7 @@ public class HistogramChart  {
     }
 
     private void drawing(String path, String title) {
-        new SwingWrapper<>(chart).displayChart(title);
-
-        try {
-            BitmapEncoder.saveBitmap(chart, path, BitmapEncoder.BitmapFormat.PNG);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        GetChart.closeWindowAction(new SwingWrapper<>(chart).displayChart(title), chart, path);
     }
 
     public void addHistogram(int[] value, String seriesName){
@@ -84,8 +76,8 @@ public class HistogramChart  {
     }
 
     private int getProperNumber(int number){
-        while (number > 30)
-            number = number / 2;
+        while (number > 18)
+            number = number - 2;
         while (number < 10)
             number *= 2;
         return number;
