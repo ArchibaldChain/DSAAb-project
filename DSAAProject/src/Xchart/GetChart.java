@@ -7,7 +7,6 @@ import org.knowm.xchart.style.PieStyler;
 import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.RadarStyler;
 import org.knowm.xchart.RadarSeries;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
