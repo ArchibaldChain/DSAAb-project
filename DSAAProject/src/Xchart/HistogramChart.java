@@ -68,7 +68,7 @@ public class HistogramChart  {
         chart.addSeries(seriesName, histogram.getxAxisData(), histogram.getyAxisData());
     }
 
-    private int getProperNumber(int number){
+    private int getProperNumber (int number){
         while (number > 15)
             number = number - 2;
         while (number < 10)

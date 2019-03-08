@@ -36,10 +36,10 @@ public class BornPlace {
         sort();
     }
 
-    public static void main(String[] args) {
-        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
-        ArrayList<Student> students = reader.parse(); // Format the data into a list
-    }
+//    public static void main(String[] args) {
+//        CSVReader reader = new CSVReader("DSAAProject\\FileStorage\\Project_data_20181208.csv"); // Use the relative path of the .csv file
+//        ArrayList<Student> students = reader.parse(); // Format the data into a list
+//    }
 
     private HashMap<String, Province> province;
     private MyTreeMap<String, Province> sortedProvince;
@@ -113,8 +113,7 @@ class Province extends ComparableNode<Province> implements AddAble<Student> {
     int returnHometown; //count the number: how many student will come back their province
 
     /**
-     * When meet the new province
-     *
+     * When meet the new province, we will use the construct method
      * @param provinceName is a String
      */
 
@@ -140,7 +139,6 @@ class Province extends ComparableNode<Province> implements AddAble<Student> {
 
     /**
      * Add new Student in this province, so num++
-     *
      * @param s is this student
      */
     @Override

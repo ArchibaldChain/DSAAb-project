@@ -12,15 +12,16 @@ import java.util.*;
  */
 
 /**
- *
- * @param <K>
- * @param <V>
+ * This class is for implementing TreeMap in by own way
+ * @param <K> key
+ * @param <V> value
  */
 public class MyTreeMap<K, V extends ComparableNode<V>>
         implements Map<K, V>{
 
-    private HashMap<K, V> elementData;
     private BinarySearchTree<V> sortedElement;
+    private HashMap<K, V> elementData;
+
 
 
     public MyTreeMap() {

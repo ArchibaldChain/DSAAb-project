@@ -31,7 +31,7 @@ public class Start {
         //ProjectData.csv
 
         //get the data from csv file
-        CSVReader reader = new CSVReader("FileStorage\\ProjectData.csv"); // Use the relative path of the .csv file
+        CSVReader reader = new CSVReader("FileStorage\\ProjectData test.csv"); // Use the relative path of the .csv file
         ArrayList<Student> students = reader.parse(); // Format the data into a list
 
         otherGraph(students.toArray(new Student[0]));
